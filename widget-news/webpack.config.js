@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { ModuleFederationPlugin } = require("webpack").container;
+const webpack = require("webpack");
 const path = require("path");
 
 module.exports = {
@@ -8,13 +9,20 @@ module.exports = {
   output: {
     filename: "widget.js",
     path: path.resolve(__dirname, "dist"),
-    publicPath: "http://localhost:3002/", // Different port!
+    publicPath: "http://localhost:3002/",
+    clean: true,
   },
   devServer: {
-    port: 3002, // Different port!
+    port: 3002,
     static: {
-      directory: path.join(__dirname, "public"),
+      directory: path.join(__dirname, "dist"),
     },
+    hot: true,
+    liveReload: true,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
+    watchFiles: ["src/**/*", "public/**/*"],
   },
   module: {
     rules: [
@@ -28,6 +36,10 @@ module.exports = {
           },
         },
       },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader", "postcss-loader"],
+      },
     ],
   },
   plugins: [
@@ -35,11 +47,17 @@ module.exports = {
       template: "./public/index.html",
     }),
     new ModuleFederationPlugin({
-      name: "news", // Unique name!
+      name: "news",
       filename: "remoteEntry.js",
       exposes: {
-        "./NewsWidget": "./src/NewsWidget.js", // Map the component
+        "./NewsWidget": "./src/NewsWidget.js",
       },
     }),
+    new webpack.DefinePlugin({
+      "process.env.NEWS_API_KEY": JSON.stringify(
+        process.env.NEWS_API_KEY || "YOUR_API_KEY_HERE"
+      ),
+    }),
+    new webpack.HotModuleReplacementPlugin(),
   ],
 };

@@ -1,0 +1,187 @@
+/* Modern CSS Reset */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Custom Properties */
+:root {
+  --primary-gradient: linear-gradient(135deg, #1a1c2e 0%, #2d3748 100%);
+  --card-bg: rgba(255, 255, 255, 0.95);
+  --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --card-shadow-hover: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --border-radius: 0.75rem;
+  --transition-speed: 0.3s;
+  --container-width: 1280px;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+}
+
+/* Base Styles */
+body {
+  background: var(--primary-gradient);
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  color: #333;
+  line-height: 1.6;
+  padding: var(--spacing-xl);
+}
+
+/* Layout */
+.container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-xl);
+}
+
+/* Typography */
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: var(--spacing-xl);
+  letter-spacing: -0.025em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(to right, #fff, #e2e8f0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Card Styles */
+.card {
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  padding: var(--spacing-lg);
+  transition: transform var(--transition-speed) ease,
+    box-shadow var(--transition-speed) ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--card-shadow-hover);
+}
+
+/* Weather Container */
+#weather-container {
+  background-size: cover;
+  background-position: center;
+  min-height: 300px;
+  margin-bottom: var(--spacing-xl);
+  position: relative;
+  overflow: hidden;
+  color: white;
+  z-index: 1;
+}
+
+#weather-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: var(--border-radius);
+  z-index: -1;
+}
+
+#weather-container > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* News Container */
+#news-container {
+  background: var(--card-bg);
+  min-height: 400px;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Utility Classes */
+.rounded-xl {
+  border-radius: var(--border-radius);
+}
+
+.shadow-lg {
+  box-shadow: var(--card-shadow);
+}
+
+.hover\:shadow-xl:hover {
+  box-shadow: var(--card-shadow-hover);
+}
+
+.transition-shadow {
+  transition: all var(--transition-speed) ease-in-out;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  transition: background var(--transition-speed) ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  :root {
+    --container-width: 100%;
+    --spacing-xl: 1.5rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .card {
+    padding: var(--spacing-md);
+  }
+}
+
+/* Print Styles */
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+
+  .card {
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+}

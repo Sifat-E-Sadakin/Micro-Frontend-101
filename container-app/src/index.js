@@ -1,3 +1,5 @@
+import "./styles.css";
+
 async function loadWidgets() {
   try {
     // Dynamically import the exposed modules from the remote microfrontends

@@ -1,11 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Dashboard</title>
+    <link href="../src/styles.css" rel="stylesheet">
   </head>
+
   <body>
-    <h1>My Awesome Dashboard</h1>
-    <div id="weather-container"></div>
-    <div id="news-container"></div>
+    <h1>My Micro Frontend Dashboard</h1>
+    <div class="container">
+
+
+      <div id="weather-container" class="card rounded-xl shadow-lg hover:shadow-xl transition-shadow"
+        style="background-image: url('https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1965&q=80')">
+      </div>
+      <div id="news-container" class="card rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+      </div>
+    </div>
+
   </body>
+
 </html>
